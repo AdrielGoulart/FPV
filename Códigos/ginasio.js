@@ -17,7 +17,7 @@ class Ginasio {
     }
 
     getLuz(x, y, z) {
-        this.luz = new THREE.AmbientLight(0xffffff, 1);
+        this.luz = new THREE.AmbientLight(0x666666, 1);
         this.luz.position.set(x, y, z);
         return this.luz;
     }
@@ -31,6 +31,8 @@ class Ginasio {
         });
         //var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
         var quadra = new THREE.Mesh(geometria, material);
+        quadra.receiveShadow = true;
+        quadra.castShadow = true;
         return quadra;
     }
 

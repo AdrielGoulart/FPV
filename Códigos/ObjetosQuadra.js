@@ -33,6 +33,8 @@ class ObjetosQuadra {
         group.add( poste2 );
         group.add( posteCima );
         group.position.x = posicao;
+        group.receiveShadow = true;
+        group.castShadow = true;
 
         return group;
 

@@ -31,6 +31,22 @@ function init() {
     var luz = ginasio.getLuz(0, 0, 2000);
     cena.add(luz);
 
+    // Testando sombras - Parcialmente implementada, tentar suavizar sombra, sombra mt quadrada
+    var light = new THREE.DirectionalLight( 0xdfebff, 1 );
+    light.position.set( 50, 200, 100 );
+    light.position.multiplyScalar( 1.3 );
+    light.castShadow = true;
+    light.shadow.mapSize.width = window.innerWidth;
+    light.shadow.mapSize.height = window.innerHeight;
+    var d = 80;
+    light.shadow.camera.left = - d;
+    light.shadow.camera.right = d;
+    light.shadow.camera.top = d;
+    light.shadow.camera.bottom = - d;
+    light.shadow.camera.far = 1000;
+    cena.add( light );
+    // Fim teste luz e sombra
+
     //Controles
     controles = new THREE.PointerLockControls(camera);
     cena.add(controles.getObject());
@@ -55,9 +71,8 @@ function init() {
     render.setPixelRatio(window.devicePixelRatio);
     render.setSize(window.innerWidth, window.innerHeight);
     canvas = ginasio.getCanvas();
-    // Enable Shadows in the Renderer
+    // Enable Shadows
     render.shadowMap.enabled = true;
-    render.shadowMap.type = THREE.BasicShadowMap;
     document.body.appendChild(canvas);
 
     window.addEventListener('resize', onWindowResize, false);
