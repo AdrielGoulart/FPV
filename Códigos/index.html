@@ -1,23 +1,24 @@
 <!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset=utf-8>
-    <title>FPV</title>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-        }
-    </style>
-</head>
-
-<body>
-    <script src="three.min.js"></script>
-    <script src="ginasio.js"></script>
-    <script src="PointerLockControls.js"></script>
-    <script src="OrbitControls.js"></script>
+<html lang="en">
+	<head>
+		<title>FPV</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="styles.css">
+    </head>
+	<body>
+		<script src="three.min.js"></script>
+		<script src="PointerLockControls.js"></script>
+		<script src="Controles.js"></script>
+		<script src="Ginasio.js"></script>
+		<script src="Pause.js"></script>
+		<div id="bloqueado">
+			<div id="instrucoes">
+				<span style="font-size:40px">Click para jogar</span>
+				<br />
+				(W, A, S, D = Movimento, SPACE = Pula, MOUSE = Olhar em volta )
+			</div>
+		</div>
     <script src="script.js"></script>
-</body>
-
+	</body>
 </html>

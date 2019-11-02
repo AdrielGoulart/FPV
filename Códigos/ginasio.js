@@ -24,10 +24,12 @@ class Ginasio {
 
     getQuadra(largura, altura) {
         //Quadra
-        var geometria = new THREE.PlaneGeometry(largura, altura, 1, 1);
-        var material = new THREE.MeshPhongMaterial({
+        var geometria = new THREE.PlaneGeometry(largura, altura, 100, 100);
+        geometria.rotateX(- Math.PI / 2);
+       var material = new THREE.MeshPhongMaterial({
             map: new THREE.TextureLoader().load('../imagens/quadra.png')
         });
+        //var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
         var quadra = new THREE.Mesh(geometria, material);
         return quadra;
     }
