@@ -5,6 +5,7 @@ var controles;
 var objects = [];
 var raycaster;
 var ginasio = new Ginasio();
+var objetosQuadra = new ObjetosQuadra();
 var controlesMovimento = new Controles();
 
 //Método para pausar a tela
@@ -29,6 +30,7 @@ function init() {
     //Luz
     var luz = ginasio.getLuz(0, 0, 2000);
     cena.add(luz);
+
     //Controles
     controles = new THREE.PointerLockControls(camera);
     cena.add(controles.getObject());
@@ -38,14 +40,24 @@ function init() {
     document.addEventListener('keyup', onKeyUp, false);
     raycaster = new THREE.Raycaster(new THREE.Vector3(), new THREE.Vector3(0, - 1, 0), 0, 10);
     //Quadra
-    var quadra = ginasio.getQuadra(200,150);
+    var quadra = ginasio.getQuadra(200, 150);
     cena.add(quadra);
+
+    // Traves
+    trave1 = objetosQuadra.getTrave(-82.5);
+    cena.add(trave1);
+    trave2 = objetosQuadra.getTrave(82.5);
+    cena.add(trave2);
+
     //Render
     render = ginasio.getRender();
-    render.setClearColor(0xffffff);
+    //render.setClearColor(0xffffff);
     render.setPixelRatio(window.devicePixelRatio);
     render.setSize(window.innerWidth, window.innerHeight);
     canvas = ginasio.getCanvas();
+    // Enable Shadows in the Renderer
+    render.shadowMap.enabled = true;
+    render.shadowMap.type = THREE.BasicShadowMap;
     document.body.appendChild(canvas);
 
     window.addEventListener('resize', onWindowResize, false);
