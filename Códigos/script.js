@@ -93,6 +93,23 @@ function init() {
     var cobertura = ginasio.getCobertura();
     cena.add(cobertura);
 
+    //Pilar teste - gerar método dps e criar as outras colunas
+    var geometry = new THREE.BoxGeometry(3, 30, 5);
+    var material = new THREE.MeshPhongMaterial({ color: 0xffffff });
+    var pilar1 = new THREE.Mesh(geometry, material);
+    pilar1.position.y = 15;
+    pilar1.position.z = -72.5;
+    pilar1.position.x = -98.5;
+    pilar1.receiveShadow = true;
+    pilar1.castShadow = true;
+    cena.add(pilar1);
+
+    pilar2 = pilar1.clone();
+    pilar2.position.x = 98.5;
+    cena.add(pilar2);
+
+    //Fim pilar teste
+
     // Traves
     trave1 = objetosQuadra.getTrave(-82.5);
     cena.add(trave1);
