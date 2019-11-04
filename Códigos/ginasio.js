@@ -26,14 +26,24 @@ class Ginasio {
         //Quadra
         var geometria = new THREE.PlaneGeometry(largura, altura, 100, 100);
         geometria.rotateX(- Math.PI / 2);
-       var material = new THREE.MeshPhongMaterial({
-            map: new THREE.TextureLoader().load('../imagens/quadra2.png')
+        var material = new THREE.MeshPhongMaterial({
+            map: new THREE.TextureLoader().load('../imagens/quadra.png')
         });
         //var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
         var quadra = new THREE.Mesh(geometria, material);
         quadra.receiveShadow = true;
         quadra.castShadow = true;
         return quadra;
+    }
+    
+    getParede(largura,altura){
+        //Parede
+        var geometria = new THREE.PlaneGeometry(largura, altura, 100, 100);
+        var material = new THREE.MeshBasicMaterial( {color: 0xffd700} );
+        var parede = new THREE.Mesh(geometria, material);
+        parede.receiveShadow = true;
+        parede.castShadow = true;
+        return parede;
     }
 
     getRender() {
