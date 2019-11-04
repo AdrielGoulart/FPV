@@ -65,25 +65,29 @@ function init() {
     parede1.position.y = 15;
     cena.add(parede1);
     //Parede atrás do gol esquerdo
-    var parede2 = ginasio.getParede(175,30);
+    var parede2 = ginasio.getParede(176,30);
     parede2.rotation.y = 1.57;
     parede2.position.x = -100;
     parede2.position.y = 15;
-    parede2.position.z = 12.5;
+    parede2.position.z = 13;
     cena.add(parede2);
     //Parede atrás do gol direito
-    var parede3 = ginasio.getParede(175,30);
+    var parede3 = ginasio.getParede(176,30);
     parede3.rotation.y = -1.57;
     parede3.position.x = 100;
     parede3.position.y = 15;
-    parede3.position.z = 12.5;
+    parede3.position.z = 13;
     cena.add(parede3);
     //Parede lado quadra com arquibancada
     var parede4 = ginasio.getParede(200,30);
     parede4.rotation.y = 3.142;
-    parede4.position.z = 100;
+    parede4.position.z = 101;
     parede4.position.y = 15;
     cena.add(parede4);
+
+    //Arquibancada
+    var arquibancada = ginasio.getArquibancada();
+    cena.add(arquibancada);
 
     // Traves
     trave1 = objetosQuadra.getTrave(-82.5);
