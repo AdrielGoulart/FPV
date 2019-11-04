@@ -89,6 +89,10 @@ function init() {
     var arquibancada = ginasio.getArquibancada();
     cena.add(arquibancada);
 
+    //Cobertura
+    var cobertura = ginasio.getCobertura();
+    cena.add(cobertura);
+
     // Traves
     trave1 = objetosQuadra.getTrave(-82.5);
     cena.add(trave1);

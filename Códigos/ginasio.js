@@ -29,11 +29,20 @@ class Ginasio {
         var material = new THREE.MeshPhongMaterial({
             map: new THREE.TextureLoader().load('../imagens/quadra.png')
         });
-        //var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
         var quadra = new THREE.Mesh(geometria, material);
         quadra.receiveShadow = true;
         quadra.castShadow = true;
         return quadra;
+    }
+
+    getCobertura() {
+        var geometry = new THREE.CylinderGeometry(88, 88, 201, 40, 1, false, 3.16, 3.1);
+        var material = new THREE.MeshPhongMaterial({ color: 0x808080, side: THREE.DoubleSide });
+        var cobertura = new THREE.Mesh(geometry, material);
+        cobertura.rotation.z = - 1.57;
+        cobertura.position.y = 28;
+        cobertura.position.z = 13;
+        return cobertura;
     }
 
     getParede(largura, altura) {
@@ -60,7 +69,7 @@ class Ginasio {
         var arquibancada2 = new THREE.Mesh(geometry, material);
         arquibancada2.position.y = 4.5;
         arquibancada2.position.z = 79;
-        
+
         var arquibancada3 = arquibancada1.clone();
         arquibancada3.position.y = 7.5;
         arquibancada3.position.z = 83;
@@ -82,14 +91,14 @@ class Ginasio {
         arquibancada7.position.z = 99;
 
         var group = new THREE.Group();
-        group.add( arquibancada1 );
-        group.add( arquibancada2 );
-        group.add( arquibancada3 );
-        group.add( arquibancada4);
-        group.add( arquibancada5 );
-        group.add( arquibancada6 );
-        group.add( arquibancada7 );
-        
+        group.add(arquibancada1);
+        group.add(arquibancada2);
+        group.add(arquibancada3);
+        group.add(arquibancada4);
+        group.add(arquibancada5);
+        group.add(arquibancada6);
+        group.add(arquibancada7);
+
         //Adicionando física
         objects.push(arquibancada1);
         objects.push(arquibancada2);
