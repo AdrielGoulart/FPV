@@ -32,9 +32,9 @@ function init() {
     cena.add(luz);
 
     // Testando sombras - Parcialmente implementada, tentar suavizar sombra, sombra mt quadrada
-    var light = new THREE.DirectionalLight( 0xdfebff, 1 );
-    light.position.set( 50, 200, 100 );
-    light.position.multiplyScalar( 1.3 );
+    var light = new THREE.DirectionalLight(0xdfebff, 1);
+    light.position.set(50, 200, 100);
+    light.position.multiplyScalar(1.3);
     light.castShadow = true;
     light.shadow.mapSize.width = window.innerWidth;
     light.shadow.mapSize.height = window.innerHeight;
@@ -44,7 +44,7 @@ function init() {
     light.shadow.camera.top = d;
     light.shadow.camera.bottom = - d;
     light.shadow.camera.far = 1000;
-    cena.add( light );
+    cena.add(light);
     // Fim teste luz e sombra
     //Controles
     controles = new THREE.PointerLockControls(camera);
@@ -60,26 +60,26 @@ function init() {
 
     //Paredes
     //Parede lado quadra sem arquibancada
-    var parede1 = ginasio.getParede(200,30);
+    var parede1 = ginasio.getParede(200, 30);
     parede1.position.z = -75;
     parede1.position.y = 15;
     cena.add(parede1);
     //Parede atrás do gol esquerdo
-    var parede2 = ginasio.getParede(176,30);
+    var parede2 = ginasio.getParede(176, 30);
     parede2.rotation.y = 1.57;
     parede2.position.x = -100;
     parede2.position.y = 15;
     parede2.position.z = 13;
     cena.add(parede2);
     //Parede atrás do gol direito
-    var parede3 = ginasio.getParede(176,30);
+    var parede3 = ginasio.getParede(176, 30);
     parede3.rotation.y = -1.57;
     parede3.position.x = 100;
     parede3.position.y = 15;
     parede3.position.z = 13;
     cena.add(parede3);
     //Parede lado quadra com arquibancada
-    var parede4 = ginasio.getParede(200,30);
+    var parede4 = ginasio.getParede(200, 30);
     parede4.rotation.y = 3.142;
     parede4.position.z = 101;
     parede4.position.y = 15;

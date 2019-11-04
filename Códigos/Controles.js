@@ -21,7 +21,7 @@ class Controles{
                     movDireita = true;
                     break;
                 case 32: // espaço
-                    if (pular === true) velocidade.y += 350;
+                    if (pular === true) velocidade.y += 200;
                     pular = false;
                     break;
             }

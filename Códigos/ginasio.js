@@ -89,6 +89,16 @@ class Ginasio {
         group.add( arquibancada5 );
         group.add( arquibancada6 );
         group.add( arquibancada7 );
+        
+        //Adicionando física
+        objects.push(arquibancada1);
+        objects.push(arquibancada2);
+        objects.push(arquibancada3);
+        objects.push(arquibancada4);
+        objects.push(arquibancada5);
+        objects.push(arquibancada6);
+        objects.push(arquibancada7);
+
         group.receiveShadow = true;
         group.castShadow = true;
         return group;
