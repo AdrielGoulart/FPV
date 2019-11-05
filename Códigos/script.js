@@ -46,7 +46,7 @@ function init() {
     light.shadow.camera.far = 1000;
     cena.add(light);
     // Fim teste luz e sombra
-    
+
     //Controles
     controles = new THREE.PointerLockControls(camera);
     cena.add(controles.getObject());
@@ -103,6 +103,13 @@ function init() {
     cena.add(trave1);
     var trave2 = objetosQuadra.getTrave(82.5);
     cena.add(trave2);
+
+    //Tentando implementar cesta de basquete
+    var cesta1 = objetosQuadra.getCesta(0,0);
+    cena.add(cesta1);
+
+    var cesta2 = objetosQuadra.getCesta(0,3.1);
+    cena.add(cesta2);
 
     //Render
     render = ginasio.getRender();
