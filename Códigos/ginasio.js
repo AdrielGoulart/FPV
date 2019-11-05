@@ -55,6 +55,86 @@ class Ginasio {
         return parede;
     }
 
+    getPilares() {
+        var geometry = new THREE.BoxGeometry(3, 30, 5);
+        var material = new THREE.MeshPhongMaterial({ color: 0x808080 });
+        var pilar = new THREE.Mesh(geometry, material);
+
+        //Os 4 Pilares dos cantos do ginásio
+        var pilar1 = pilar.clone();
+        pilar1.position.y = 15;
+        pilar1.position.z = -72.5;
+        pilar1.position.x = -98.5;
+
+        var pilar2 =  pilar.clone();
+        pilar2.position.y = 15;
+        pilar2.position.z = -72.5;
+        pilar2.position.x = 98.5;
+
+        var pilar3 =  pilar.clone();
+        pilar3.position.y = 15;
+        pilar3.position.z = 98.5;
+        pilar3.position.x = 98.5;
+
+        var pilar4 =  pilar.clone();
+        pilar4.position.y = 15;
+        pilar4.position.z = 98.5;
+        pilar4.position.x = -98.5;
+
+        //Os 2 pilares atrás do gol
+        var pilar5 =  pilar.clone();
+        pilar5.position.y = 15;
+        pilar5.position.z = 13.55;
+        pilar5.position.x = -98.5;
+
+        var pilar6 =  pilar.clone();
+        pilar6.position.y = 15;
+        pilar6.position.z = 13.55;
+        pilar6.position.x = 98.5;
+
+        //Os 4 Pilares das paredes laterais
+        var pilar7 =  pilar.clone();
+        pilar7.position.x = 24.625;
+        pilar7.position.y = 15;
+        pilar7.position.z = -73.5;
+        pilar7.rotation.y = 1.55;
+
+        var pilar8 = pilar.clone(); 
+        pilar8.position.y = 15;
+        pilar8.position.z = -73.5;
+        pilar8.rotation.y = 1.55;
+        pilar8.position.x = -24.625;
+
+        var pilar9 =  pilar.clone();
+        pilar9.position.x = 24.625;
+        pilar9.position.y = 15;
+        pilar9.position.z = 99.5;
+        pilar9.rotation.y = 1.55;
+
+        var pilar10 =  pilar.clone();
+        pilar10.position.y = 15;
+        pilar10.position.z = 99.5;
+        pilar10.rotation.y = 1.55;
+        pilar10.position.x = -24.625;
+
+        var pilares = new THREE.Group();
+        pilares.add(pilar1);
+        pilares.add(pilar2);
+        pilares.add(pilar3);
+        pilares.add(pilar4);
+        pilares.add(pilar5);
+        pilares.add(pilar6);
+        pilares.add(pilar7);
+        pilares.add(pilar8);
+        pilares.add(pilar9);
+        pilares.add(pilar10);
+        pilares.receiveShadow = true;
+        pilares.castShadow = true;
+
+        return pilares;
+
+    }
+
     getArquibancada() {
         //Azul
         var geometry = new THREE.BoxGeometry(200, 3, 4);
