@@ -59,6 +59,7 @@ class Controles{
             var isOnObject = intersections.length > 0;
             var time = performance.now();
             var delta = (time - prevTime) / 1000;
+            console.log(delta);
             velocidade.x -= velocidade.x * 10.0 * delta;
             velocidade.z -= velocidade.z * 10.0 * delta;
             velocidade.y -= 9.8 * 100.0 * delta; // 100.0 = mass
