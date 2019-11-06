@@ -120,6 +120,10 @@ function init() {
     //Banco
     objetosQuadra.getBancos();
 
+    //Adicionando a porta
+    var porta = ginasio.getPorta();
+    cena.add(porta);
+
     //Render
     render = ginasio.getRender();
     //render.setClearColor(0xffffff);

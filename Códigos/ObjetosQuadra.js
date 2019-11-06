@@ -212,4 +212,5 @@ class ObjetosQuadra {
         cena.add(banco1);
         cena.add(banco2);
     }
+
 }

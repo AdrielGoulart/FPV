@@ -193,6 +193,23 @@ class Ginasio {
         return group;
     }
 
+    
+    getPorta() {
+        var geometria = new THREE.PlaneGeometry(7, 16, 100, 100);
+        geometria.rotateY(Math.PI / 2);
+        var material = new THREE.MeshPhongMaterial({
+            map: new THREE.TextureLoader().load('../imagens/porta.png'),
+            transparent: true
+        });
+        var porta = new THREE.Mesh(geometria, material);
+        porta.position.x = -99.8;
+        porta.position.y = 6.8;
+        porta.position.z = 68;
+        porta.receiveShadow = true;
+        porta.castShadow = true;
+        return porta;
+    }
+
     getRender() {
         return this.render;
     }
