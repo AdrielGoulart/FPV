@@ -105,14 +105,17 @@ function init() {
     cena.add(trave2);
 
     //TCestas de basquete
-    var cesta1 = objetosQuadra.getCesta(0,0);
+    var cesta1 = objetosQuadra.getCesta(0, 0);
     cena.add(cesta1);
-    var cesta2 = objetosQuadra.getCesta(0,3.1);
+    var cesta2 = objetosQuadra.getCesta(0, 3.1);
     cena.add(cesta2);
 
     //Placar digital
-    var placar  = objetosQuadra.getPlacar();
+    var placar = objetosQuadra.getPlacar();
     cena.add(placar);
+
+    //Grades de proteção
+    var grade = objetosQuadra.getGrades();
 
     //Render
     render = ginasio.getRender();

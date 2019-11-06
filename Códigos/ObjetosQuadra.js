@@ -112,4 +112,53 @@ class ObjetosQuadra {
         placar.castShadow = true;
         return placar;
     }
+
+    getGrades(){
+        var posicao = 91.5;
+        for (let i = 0; i < 14; i++) {
+        var poleGeo = new THREE.CylinderBufferGeometry(0.2, 0.2, 5, 64);
+        var poleMat = new THREE.MeshLambertMaterial();
+        var poste1 = new THREE.Mesh(poleGeo, poleMat);
+        poste1.position.y = 3;
+        poste1.position.z = -5;
+        poste1.receiveShadow = true;
+        poste1.castShadow = true;
+    
+        var poste2 = new THREE.Mesh(poleGeo, poleMat);
+        poste2.position.y = 3;
+        poste2.position.z = 8;
+        poste2.receiveShadow = true;
+        poste2.castShadow = true;
+    
+        var posteCima = new THREE.Mesh(new THREE.CylinderBufferGeometry(0.2, 0.2, 13, 64), poleMat);
+        posteCima.rotation.x = 1.57;
+        posteCima.position.y = 5.3;
+        posteCima.position.z = 1.5;
+        posteCima.receiveShadow = true;
+        posteCima.castShadow = true;
+    
+        var geometria = new THREE.PlaneGeometry(13, 5, 100, 100);
+        geometria.rotateY(Math.PI / 2);
+        var material = new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load('../imagens/grade.png'), transparent: true, side: THREE.DoubleSide });
+        var grade = new THREE.Mesh(geometria, material);
+        grade.position.y = 3;
+        grade.position.z = 1.5;
+        grade.receiveShadow = true;
+        grade.castShadow = true;
+    
+        var group = new THREE.Group();
+        group.add(poste1);
+        group.add(poste2);
+        group.add(posteCima);
+        group.add(grade);
+        group.position.x = 0;
+        group.receiveShadow = true;
+        group.castShadow = true;
+        group.rotation.y = Math.PI/2;
+        group.position.x = posicao;
+        group.position.z = 65;
+        posicao -= 13.5;
+        cena.add(group);       
+        }
+    }
 }
