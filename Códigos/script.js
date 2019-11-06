@@ -115,7 +115,10 @@ function init() {
     cena.add(placar);
 
     //Grades de proteção
-    var grade = objetosQuadra.getGrades();
+    objetosQuadra.getGrades();
+
+    //Banco
+    objetosQuadra.getBancos();
 
     //Render
     render = ginasio.getRender();
