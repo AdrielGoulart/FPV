@@ -104,12 +104,15 @@ function init() {
     var trave2 = objetosQuadra.getTrave(82.5);
     cena.add(trave2);
 
-    //Tentando implementar cesta de basquete
+    //TCestas de basquete
     var cesta1 = objetosQuadra.getCesta(0,0);
     cena.add(cesta1);
-
     var cesta2 = objetosQuadra.getCesta(0,3.1);
     cena.add(cesta2);
+
+    //Placar digital
+    var placar  = objetosQuadra.getPlacar();
+    cena.add(placar);
 
     //Render
     render = ginasio.getRender();
