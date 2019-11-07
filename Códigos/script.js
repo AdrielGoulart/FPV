@@ -132,6 +132,7 @@ function init() {
     canvas = ginasio.getCanvas();
     // Enable Shadows
     render.shadowMap.enabled = true;
+    render.shadowMap.type = THREE.PCFSoftShadowMap;
     document.body.appendChild(canvas);
 
     window.addEventListener('resize', onWindowResize, false);
