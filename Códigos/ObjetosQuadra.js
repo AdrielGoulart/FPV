@@ -213,4 +213,58 @@ class ObjetosQuadra {
         cena.add(banco2);
     }
 
+    getSom() {
+        // AudioListener pra camera
+        var listener = new THREE.AudioListener();
+        camera.add(listener);
+
+        // Criando um PositionalAudio
+        var sound1 = new THREE.PositionalAudio(listener);
+        var sound2 = new THREE.PositionalAudio(listener);
+
+        var audioLoader1 = new THREE.AudioLoader();
+        audioLoader1.load('../Musicas/Infinity.mp3', function (buffer) {
+            sound1.setBuffer(buffer);
+            sound1.setLoop(true);
+            sound1.setRefDistance(5);
+            sound1.setVolume(1);
+            sound1.play();
+        });
+
+        var audioLoader2 = new THREE.AudioLoader();
+        audioLoader2.load('../Musicas/Infinity.mp3', function (buffer) {
+            sound2.setBuffer(buffer);
+            sound2.setLoop(true);
+            sound2.setRefDistance(5);
+            sound2.setVolume(1);
+            sound2.play();
+        });
+
+        var geometry = new THREE.BoxGeometry(2, 4, 2.5);
+        var material = new THREE.MeshPhongMaterial({
+            map: new THREE.TextureLoader().load('../imagens/som.png'),
+        });
+        var som1 = new THREE.Mesh(geometry, material);
+        som1.position.y = 20;
+        som1.position.z = 60;
+        som1.position.x = -99;
+        som1.receiveShadow = true;
+        som1.castShadow = true;
+        som1.add(sound1);
+        cena.add(som1);
+
+        var geometry = new THREE.BoxGeometry(2, 4, 2.5);
+        var material = new THREE.MeshPhongMaterial({
+            map: new THREE.TextureLoader().load('../imagens/som.png'),
+        });
+        var som2 = new THREE.Mesh(geometry, material);
+        som2.position.y = 20;
+        som2.position.z = 60;
+        som2.position.x = 99;
+        som2.receiveShadow = true;
+        som2.castShadow = true;
+        som2.add(sound2);
+        cena.add(som2);
+    }
+
 }

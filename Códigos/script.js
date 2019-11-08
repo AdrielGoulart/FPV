@@ -47,6 +47,8 @@ function init() {
     cena.add(light);
     // Fim teste luz e sombra
 
+    objetosQuadra.getSom();
+
     //Controles
     controles = new THREE.PointerLockControls(camera);
     cena.add(controles.getObject());
