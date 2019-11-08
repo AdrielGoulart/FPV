@@ -10,7 +10,7 @@ class Ginasio {
 
         //Shadow 
         this.render.shadowMap.enabled = true;
-        this.render.shadowMap.type = THREE.BasicShadowMap;
+        this.render.shadowMap.type = THREE.PCFSoftShadowMap;
 
         //Canvas 
         this.canvas = this.render.domElement;
