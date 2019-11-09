@@ -25,6 +25,7 @@ var velocidade = new THREE.Vector3();
 function init() {
     //Câmera
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
+    camera.position.set(0,7,0);
     cena = new THREE.Scene();
     cena.fog = new THREE.Fog(0xffffff, 0, 750);
     //Luz
