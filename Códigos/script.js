@@ -8,6 +8,17 @@ var ginasio = new Ginasio();
 var objetosQuadra = new ObjetosQuadra();
 var controlesMovimento = new Controles();
 
+//Bola
+var count = 0;
+var radius = 0.08;
+var normal = new THREE.Vector3();
+var relativeVelocity = new THREE.Vector3();
+var clock = new THREE.Clock();
+var geometry = new THREE.IcosahedronBufferGeometry(radius, 2);
+
+//
+var quadra = ginasio.getQuadra(200, 150);
+
 //Método para pausar a tela
 var pause = new Pause();
 pause.pauseMouse();
@@ -25,7 +36,7 @@ var velocidade = new THREE.Vector3();
 function init() {
     //Câmera
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
-    camera.position.set(0,7,0);
+    camera.position.set(0, 7, 0);
     cena = new THREE.Scene();
     cena.fog = new THREE.Fog(0xffffff, 0, 750);
     //Luz
@@ -59,7 +70,6 @@ function init() {
     document.addEventListener('keyup', onKeyUp, false);
     raycaster = new THREE.Raycaster(new THREE.Vector3(), new THREE.Vector3(0, - 1, 0), 0, 10);
     //Quadra
-    var quadra = ginasio.getQuadra(200, 150);
     cena.add(quadra);
 
     //Paredes
@@ -127,6 +137,28 @@ function init() {
     var porta = ginasio.getPorta();
     cena.add(porta);
 
+    //------------------------------BOLAS-------------------------------------
+
+    for (var i = 0; i < 100; i++) {
+
+        var object = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({ color: Math.random() * 0xffffff }));
+
+
+        object.position.x = Math.random() * 4 - 2;
+        object.position.y = Math.random() * 4;
+        object.position.z = Math.random() * 4 - 2;
+
+        object.userData.velocity = new THREE.Vector3();
+        object.userData.velocity.x = Math.random() * 0.01 - 0.005;
+        object.userData.velocity.y = Math.random() * 0.01 - 0.005;
+        object.userData.velocity.z = Math.random() * 0.01 - 0.005;
+
+        quadra.add(object);
+
+    }
+
+    //-------------------------------------------------------------------
+
     //Render
     render = ginasio.getRender();
     //render.setClearColor(0xffffff);
@@ -141,6 +173,79 @@ function init() {
     window.addEventListener('resize', onWindowResize, false);
 }
 
+function movBalls() {
+    var delta = clock.getDelta() * 0.8; // slow down simulation
+
+    var range = 3 - radius;
+
+    for (var i = 0; i < quadra.children.length; i++) {
+
+        var object = quadra.children[i];
+
+        object.position.x += object.userData.velocity.x * delta;
+        object.position.y += object.userData.velocity.y * delta;
+        object.position.z += object.userData.velocity.z * delta;
+
+        // keep objects inside room
+
+        if (object.position.x < - range || object.position.x > range) {
+
+            object.position.x = THREE.Math.clamp(object.position.x, - range, range);
+            object.userData.velocity.x = - object.userData.velocity.x;
+
+        }
+
+        if (object.position.y < radius || object.position.y > 6) {
+
+            object.position.y = Math.max(object.position.y, radius);
+
+            object.userData.velocity.x *= 0.98;
+            object.userData.velocity.y = - object.userData.velocity.y * 0.8;
+            object.userData.velocity.z *= 0.98;
+
+        }
+
+        if (object.position.z < - range || object.position.z > range) {
+
+            object.position.z = THREE.Math.clamp(object.position.z, - range, range);
+            object.userData.velocity.z = - object.userData.velocity.z;
+
+        }
+
+        for (var j = i + 1; j < quadra.children.length; j++) {
+
+            var object2 = quadra.children[j];
+
+            normal.copy(object.position).sub(object2.position);
+
+            var distance = normal.length();
+
+            if (distance < 2 * radius) {
+
+                normal.multiplyScalar(0.5 * distance - radius);
+
+                object.position.sub(normal);
+                object2.position.add(normal);
+
+                normal.normalize();
+
+                relativeVelocity.copy(object.userData.velocity).sub(object2.userData.velocity);
+
+                normal = normal.multiplyScalar(relativeVelocity.dot(normal));
+
+                object.userData.velocity.sub(normal);
+                object2.userData.velocity.add(normal);
+
+            }
+
+        }
+
+        object.userData.velocity.y -= 9.8 * delta;
+
+    }
+}
+
+
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
@@ -148,6 +253,7 @@ function onWindowResize() {
 }
 
 function animacao() {
+    movBalls();
     requestAnimationFrame(animacao);
     controlesMovimento.ativaMouse(controlesAtivado);
     render.render(cena, camera);
