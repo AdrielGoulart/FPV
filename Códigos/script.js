@@ -207,7 +207,7 @@ function movBolas() {
     bolas[5].position.z = Math.sin(time) * 18;
 
     bolas[6].position.y = 1 + Math.abs(Math.sin(time * 4)) * 6;
-    bolas[6].position.z = Math.cos(time) * 73;
+    bolas[6].position.z = Math.cos(time) * 60;
 
     //------------------------------------
 
