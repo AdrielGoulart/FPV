@@ -14,7 +14,7 @@ var radius = 0.08;
 var normal = new THREE.Vector3();
 var relativeVelocity = new THREE.Vector3();
 var clock = new THREE.Clock();
-var geometry = new THREE.IcosahedronBufferGeometry(radius, 2);
+var geometry = new THREE.IcosahedronBufferGeometry(0.5, 2);
 
 //
 var quadra = ginasio.getQuadra(200, 150);
@@ -139,14 +139,14 @@ function init() {
 
     //------------------------------BOLAS-------------------------------------
 
-    for (var i = 0; i < 100; i++) {
+    for (var i = 0; i < 200; i++) {
 
         var object = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({ color: Math.random() * 0xffffff }));
 
 
-        object.position.x = Math.random() * 4 - 2;
-        object.position.y = Math.random() * 4;
-        object.position.z = Math.random() * 4 - 2;
+        object.position.x = Math.random() * 50 - 2;
+        object.position.y = Math.random() * 8;
+        object.position.z = Math.random() * 75 - 2;
 
         object.userData.velocity = new THREE.Vector3();
         object.userData.velocity.x = Math.random() * 0.01 - 0.005;
@@ -176,7 +176,8 @@ function init() {
 function movBalls() {
     var delta = clock.getDelta() * 0.8; // slow down simulation
 
-    var range = 3 - radius;
+    //Variável para delimitar o tamanho do alcance da física na quadra
+    var range = 60 - radius;
 
     for (var i = 0; i < quadra.children.length; i++) {
 
@@ -187,7 +188,7 @@ function movBalls() {
         object.position.z += object.userData.velocity.z * delta;
 
         // keep objects inside room
-
+        //Raio de alcance das bolinhas
         if (object.position.x < - range || object.position.x > range) {
 
             object.position.x = THREE.Math.clamp(object.position.x, - range, range);
@@ -211,7 +212,7 @@ function movBalls() {
             object.userData.velocity.z = - object.userData.velocity.z;
 
         }
-
+        
         for (var j = i + 1; j < quadra.children.length; j++) {
 
             var object2 = quadra.children[j];
