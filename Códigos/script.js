@@ -146,7 +146,7 @@ function init() {
     var bolaGeometria = new THREE.SphereBufferGeometry(1, 32, 32);
 
     //Nesse for define quantas bolas serão criadas e adiciona na cena
-    for (var i = 0; i < 18; i++) {
+    for (var i = 0; i < 17; i++) {
         var numero = Math.random() * (1 - 0) + 0;
         if (numero < 0.5) {
             var bolaMaterial = new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load('../imagens/futebol.png'), specular: 0xffffff, flatShading: true });
