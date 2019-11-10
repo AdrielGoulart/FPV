@@ -7,7 +7,12 @@ var raycaster;
 var ginasio = new Ginasio();
 var objetosQuadra = new ObjetosQuadra();
 var controlesMovimento = new Controles();
+var bolas = [];
+var antes = performance.now();
 
+var clock = new THREE.Clock();
+var time = 0;
+var delta = 0;
 //Bola
 var count = 0;
 var radius = 0.08;
@@ -137,27 +142,28 @@ function init() {
     var porta = ginasio.getPorta();
     cena.add(porta);
 
-    //------------------------------BOLAS-------------------------------------
+    // Bolas da quadra
+    var bolaGeometria = new THREE.SphereBufferGeometry(1, 32, 32);
 
-    for (var i = 0; i < 200; i++) {
-
-        var object = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({ color: Math.random() * 0xffffff }));
-
-
-        object.position.x = Math.random() * 50 - 2;
-        object.position.y = Math.random() * 8;
-        object.position.z = Math.random() * 75 - 2;
-
-        object.userData.velocity = new THREE.Vector3();
-        object.userData.velocity.x = Math.random() * 0.01 - 0.005;
-        object.userData.velocity.y = Math.random() * 0.01 - 0.005;
-        object.userData.velocity.z = Math.random() * 0.01 - 0.005;
-
-        quadra.add(object);
-
+    //Nesse for define quantas bolas serão criadas e adiciona na cena
+    for (var i = 0; i < 500; i++) {
+        var numero =  Math.random() * (1 - 0) + 0;
+        if(numero < 0.5){  
+            var bolaMaterial = new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load('../imagens/futebol.png'),specular: 0xffffff, flatShading: true});
+            var box = new THREE.Mesh(bolaGeometria, bolaMaterial);
+        }else{
+            var bolaMaterial = new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load('../imagens/basquete.png'),specular: 0xffffff, flatShading: true});
+            var box = new THREE.Mesh(bolaGeometria, bolaMaterial);
+        }
+        
+        box.receiveShadow = true;
+        box.castShadow = true;
+        box.position.x = (Math.random() * 12.8 - 6.5) * 12.8;
+        box.position.y = (Math.random() * 10) * 10 + 5;
+        box.position.z = (Math.random() * 11 - 5.4) * 10;
+        cena.add(box);
+        bolas.push(box);
     }
-
-    //-------------------------------------------------------------------
 
     //Render
     render = ginasio.getRender();
@@ -173,79 +179,24 @@ function init() {
     window.addEventListener('resize', onWindowResize, false);
 }
 
-function movBalls() {
-    var delta = clock.getDelta() * 0.8; // slow down simulation
-
-    //Variável para delimitar o tamanho do alcance da física na quadra
-    var range = 60 - radius;
-
-    for (var i = 0; i < quadra.children.length; i++) {
-
-        var object = quadra.children[i];
-
-        object.position.x += object.userData.velocity.x * delta;
-        object.position.y += object.userData.velocity.y * delta;
-        object.position.z += object.userData.velocity.z * delta;
-
-        // keep objects inside room
-        //Raio de alcance das bolinhas
-        if (object.position.x < - range || object.position.x > range) {
-
-            object.position.x = THREE.Math.clamp(object.position.x, - range, range);
-            object.userData.velocity.x = - object.userData.velocity.x;
-
-        }
-
-        if (object.position.y < radius || object.position.y > 6) {
-
-            object.position.y = Math.max(object.position.y, radius);
-
-            object.userData.velocity.x *= 0.98;
-            object.userData.velocity.y = - object.userData.velocity.y * 0.8;
-            object.userData.velocity.z *= 0.98;
-
-        }
-
-        if (object.position.z < - range || object.position.z > range) {
-
-            object.position.z = THREE.Math.clamp(object.position.z, - range, range);
-            object.userData.velocity.z = - object.userData.velocity.z;
-
-        }
-        
-        for (var j = i + 1; j < quadra.children.length; j++) {
-
-            var object2 = quadra.children[j];
-
-            normal.copy(object.position).sub(object2.position);
-
-            var distance = normal.length();
-
-            if (distance < 2 * radius) {
-
-                normal.multiplyScalar(0.5 * distance - radius);
-
-                object.position.sub(normal);
-                object2.position.add(normal);
-
-                normal.normalize();
-
-                relativeVelocity.copy(object.userData.velocity).sub(object2.userData.velocity);
-
-                normal = normal.multiplyScalar(relativeVelocity.dot(normal));
-
-                object.userData.velocity.sub(normal);
-                object2.userData.velocity.add(normal);
-
+function movBolas() {
+    //Movimento das bolas
+    if (controlesAtivado) {
+        for (var i = 0; i < bolas.length; i++) {
+            delta = clock.getDelta();
+            time += delta;
+            if (i < 250) {
+               // bolas[3].position.y = 1 + Math.abs(Math.sin(time * 3)) * 15;
+                //bolas[3].position.x = Math.cos(time) * 70;
+                bolas[i].position.y = 1 + Math.abs(Math.sin(time * 3)) * 15;
+            } else {
+                //bolas[2].position.y = 1 + Math.abs(Math.sin(time * 3)) * 25;
+                bolas[i].position.y = 1 + Math.abs(Math.sin(time * 3)) * 25;
+                //bolas[2].position.z = Math.cos(time) * 70;
             }
-
         }
-
-        object.userData.velocity.y -= 9.8 * delta;
-
     }
 }
-
 
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -254,7 +205,7 @@ function onWindowResize() {
 }
 
 function animacao() {
-    movBalls();
+    movBolas();
     requestAnimationFrame(animacao);
     controlesMovimento.ativaMouse(controlesAtivado);
     render.render(cena, camera);
