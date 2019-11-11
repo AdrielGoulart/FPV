@@ -181,7 +181,7 @@ function init() {
 
 function movBolas() {
     //Movimento das bolas
-
+    if(controlesAtivado){
     delta = clock.getDelta();
     time += delta;
 
@@ -244,6 +244,7 @@ function movBolas() {
 
     bolas[16].position.y = 0.5 + Math.abs(Math.sin(time * 3)) * 19;
     bolas[16].position.z = Math.sin(time) * 14.2;
+    }
 
 }
 
