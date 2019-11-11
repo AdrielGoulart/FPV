@@ -1,8 +1,8 @@
-class Controles{
+class Controles {
     constructor() {
     }
 
-    keyDown(){
+    keyDown() {
         return function (event) {
             switch (event.keyCode) {
                 case 38: // frente
@@ -28,7 +28,7 @@ class Controles{
         };
     }
 
-    keyUp(){
+    keyUp() {
         return function (event) {
             switch (event.keyCode) {
                 case 38: // up
@@ -51,7 +51,7 @@ class Controles{
         };
     }
 
-    ativaMouse(controlesAtivado){
+    ativaMouse(controlesAtivado) {
         if (controlesAtivado) {
             raycaster.ray.origin.copy(controles.getObject().position);
             raycaster.ray.origin.y -= 10;
@@ -62,23 +62,40 @@ class Controles{
             velocidade.x -= velocidade.x * 10.0 * delta;
             velocidade.z -= velocidade.z * 10.0 * delta;
             velocidade.y -= 9.8 * 100.0 * delta; // 100.0 = mass
-            if (movFrente) velocidade.z -= 400.0 * delta;
-            if (movTras) velocidade.z += 400.0 * delta;
-            if (movEsquerda) velocidade.x -= 400.0 * delta;
-            if (movDireita) velocidade.x += 400.0 * delta;
+            if (movFrente) {
+                velocidade.z -= 400.0 * delta;
+                this.movimenta(delta);
+            }
+            if (movTras) {
+                velocidade.z += 400.0 * delta;
+                this.movimenta(delta);
+            }
+            if (movEsquerda) {
+                velocidade.x -= 400.0 * delta;
+                this.movimenta(delta);
+            }
+            if (movDireita) {
+                velocidade.x += 400.0 * delta;
+                this.movimenta(delta);
+            }
             if (isOnObject === true) {
                 velocidade.y = Math.max(0, velocidade.y);
                 pular = true;
+                this.movimenta(delta);
             }
-            controles.getObject().translateX(velocidade.x * delta);
-            controles.getObject().translateY(velocidade.y * delta);
-            controles.getObject().translateZ(velocidade.z * delta);
             if (controles.getObject().position.y < 10) {
                 velocidade.y = 0;
                 controles.getObject().position.y = 7;
                 pular = true;
+                this.movimenta(delta);
             }
             prevTime = time;
         }
+    }
+
+    movimenta(delta) {
+        controles.getObject().translateX(velocidade.x * delta);
+        controles.getObject().translateY(velocidade.y * delta);
+        controles.getObject().translateZ(velocidade.z * delta);
     }
 }
